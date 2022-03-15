@@ -227,7 +227,7 @@ PanelHeaderFactory.deps = [SaveExportDropdownFactory, CloudStorageDropdownFactor
 
 
 function save2server(props){
-  var data = getMapJSON(props)
+  var data = getMapJSON(props,{hasData: true})
   // console.log(data)
   const requestOptions = {
         method: 'POST',
