@@ -239,7 +239,6 @@ function save2server(props){
         return response.json();
       })
       .then((myJson) => {
-        // console.log(myJson);
       });
 }
 
@@ -278,7 +277,6 @@ function PanelHeaderFactory(SaveExportDropdown, CloudStorageDropdown) {
           iconComponent: Save2,
           tooltip: 'Save new version',
           onClick: (props) => {
-            console.log("Trigger save")
             save2server(props)
           }
         },
@@ -286,9 +284,7 @@ function PanelHeaderFactory(SaveExportDropdown, CloudStorageDropdown) {
           id: 'recentfiles',
           iconComponent: OrderByList,
           tooltip: 'Recent files',
-          onClick: () => {
-            console.log("Show recent files")
-          }
+          onClick: () => {}
         },
         {
           id: 'save',

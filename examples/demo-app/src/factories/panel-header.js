@@ -47,17 +47,13 @@ export function CustomPanelHeaderFactory(...deps) {
         id: 'save2server',
         iconComponent: Icons.Save2,
         tooltip: 'Save as new version',
-        onClick: () => {
-          console.log("trigger save")
-        }
+        onClick: () => {}
       },
       {
         id: 'recentfiles',
         iconComponent: Icons.OrderByList,
         tooltip: 'Recent files',
-        onClick: () => {
-          console.log("Show recent files")
-        }
+        onClick: () => {}
       },
       {
         ...defaultActionItems.find(item => item.id === 'save'),

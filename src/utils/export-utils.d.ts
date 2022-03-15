@@ -1,6 +1,7 @@
 import {ExportImage} from 'reducers/ui-state-updaters';
 
 export const downloadFile: (fileBlob: Blob, fileName: string) => void;
+export const getMapJSON: (state: any, options: object) => object;
 export const exportJson: (state: any, options: object) => void;
 export const exportHtml: (state: any, options: object) => void;
 export const exportData: (state: any, options: object) => void;
