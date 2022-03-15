@@ -148,7 +148,12 @@ export const sidePanelSelector = (props, availableProviders, filteredDatasets) =
   appName: props.appName,
   version: props.version,
   appWebsite: props.appWebsite,
+  
+  // need for exporting json
   mapStyle: props.mapStyle,
+  visState: props.visState,
+  mapState: props.mapState,
+
   onSaveMap: props.onSaveMap,
   uiState: props.uiState,
   mapStyleActions: props.mapStyleActions,

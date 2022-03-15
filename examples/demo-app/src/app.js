@@ -46,7 +46,7 @@ import {CLOUD_PROVIDERS} from './cloud-providers';
 const KeplerGl = require('kepler.gl/components').injectComponents([
   replaceLoadDataModal(),
   replaceMapControl(),
-  replacePanelHeader()
+  // replacePanelHeader()
 ]);
 
 // Sample data
@@ -106,8 +106,6 @@ class App extends Component {
   componentDidMount() {
     // if we pass an id as part of the url
     // we ry to fetch along map configurations
-
-    console.log(this.props)
 
     const {params: {id, provider} = {}, location: {query = {}} = {}} = this.props;
 

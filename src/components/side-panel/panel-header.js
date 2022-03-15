@@ -24,11 +24,13 @@ import PropTypes from 'prop-types';
 import {createSelector} from 'reselect';
 import {Tooltip} from 'components/common/styled-components';
 import KeplerGlLogo from 'components/common/logo';
-import {Save, DataTable, Save2, Picture, Db, Map as MapIcon, Share} from 'components/common/icons';
+import {Save, DataTable, Save2,OrderByList, Picture, Db, Map as MapIcon, Share} from 'components/common/icons';
 import ClickOutsideCloseDropdown from 'components/side-panel/panel-dropdown';
 import Toolbar from 'components/common/toolbar';
 import ToolbarItem from 'components/common/toolbar-item';
 import {FormattedMessage} from 'localization';
+
+import {getMapJSON} from 'utils/export-utils';
 
 const StyledPanelHeader = styled.div.attrs({
   className: 'side-side-panel__header'
@@ -223,6 +225,25 @@ CloudStorageDropdownFactory.deps = [PanelHeaderDropdownFactory];
 
 PanelHeaderFactory.deps = [SaveExportDropdownFactory, CloudStorageDropdownFactory];
 
+
+function save2server(props){
+  var data = getMapJSON(props)
+  // console.log(data)
+  const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+  };
+  fetch('http://0.0.0.0:3000/uploadJson', requestOptions)
+      .then((response) => {
+        return response.json();
+      })
+      .then((myJson) => {
+        // console.log(myJson);
+      });
+}
+
+
 function PanelHeaderFactory(SaveExportDropdown, CloudStorageDropdown) {
   return class PanelHeader extends Component {
     static propTypes = {
@@ -239,24 +260,41 @@ function PanelHeaderFactory(SaveExportDropdown, CloudStorageDropdown) {
       onSaveToStorage: PropTypes.func,
       onSaveAsToStorage: PropTypes.func,
       onSaveMap: PropTypes.func,
-      onShareMap: PropTypes.func
+      onShareMap: PropTypes.func,
+
+      mapStyle: PropTypes.object,
+      visState: PropTypes.object,
+      mapState: PropTypes.object
     };
 
+
+
     static defaultProps = {
+      
       logoComponent: KeplerGlLogo,
       actionItems: [
         {
           id: 'storage',
-          iconComponent: Db,
-          tooltip: 'tooltip.cloudStorage',
-          onClick: () => {},
-          dropdownComponent: CloudStorageDropdown
+          iconComponent: Save2,
+          tooltip: 'Save new version',
+          onClick: (props) => {
+            console.log("Trigger save")
+            save2server(props)
+          }
+        },
+        {
+          id: 'recentfiles',
+          iconComponent: OrderByList,
+          tooltip: 'Recent files',
+          onClick: () => {
+            console.log("Show recent files")
+          }
         },
         {
           id: 'save',
           iconComponent: Save,
           onClick: () => {},
-          label: 'Share',
+          label: '',
           dropdownComponent: SaveExportDropdown
         }
       ]

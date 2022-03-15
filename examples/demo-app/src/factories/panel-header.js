@@ -27,14 +27,14 @@ export function CustomPanelHeaderFactory(...deps) {
   PanelHeader.defaultProps = {
     ...PanelHeader.defaultProps,
     actionItems: [
-      {
-        id: 'bug',
-        iconComponent: Icons.Bug,
-        href: BUG_REPORT_LINK,
-        blank: true,
-        tooltip: 'Bug Report',
-        onClick: () => {}
-      },
+      // {
+      //   id: 'bug',
+      //   iconComponent: Icons.Bug,
+      //   href: BUG_REPORT_LINK,
+      //   blank: true,
+      //   tooltip: 'Bug Report',
+      //   onClick: () => {}
+      // },
       {
         id: 'docs',
         iconComponent: Icons.Docs,
@@ -43,7 +43,22 @@ export function CustomPanelHeaderFactory(...deps) {
         tooltip: 'User Guide',
         onClick: () => {}
       },
-      defaultActionItems.find(item => item.id === 'storage'),
+      {
+        id: 'save2server',
+        iconComponent: Icons.Save2,
+        tooltip: 'Save as new version',
+        onClick: () => {
+          console.log("trigger save")
+        }
+      },
+      {
+        id: 'recentfiles',
+        iconComponent: Icons.OrderByList,
+        tooltip: 'Recent files',
+        onClick: () => {
+          console.log("Show recent files")
+        }
+      },
       {
         ...defaultActionItems.find(item => item.id === 'save'),
         label: null,

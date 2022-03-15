@@ -121,6 +121,8 @@ export default function SidePanelFactory(
       mapSaved,
       mapStateActions,
       mapStyle,
+      visState,
+      mapState,
       mapStyleActions,
       onSaveMap,
       uiState,
@@ -202,6 +204,9 @@ export default function SidePanelFactory(
           onSaveToStorage={onSaveToStorage}
           onSaveAsToStorage={onSaveAsToStorage}
           onShareMap={onShareMap}
+          mapStyle= {mapStyle}
+          visState= {visState}
+          mapState= {mapState}
         />
         {/* the next two components should be moved into one */}
         {/* but i am keeping them because of backward compatibility */}
