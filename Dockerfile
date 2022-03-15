@@ -13,10 +13,18 @@ RUN nvm install 12.22.10
 
 RUN nvm use 12.22.10
 
-RUN git clone https://github.com/keplergl/kepler.gl.git
+# RUN git clone https://github.com/keplergl/kepler.gl.git
 
 WORKDIR /kepler.gl 
 
+ADD . /kepler.gl
+
 RUN npm install
 
-CMD ["npm", "start"]
+RUN npm install --global yarn
+
+ENV MapboxAccessToken pk.eyJ1IjoibWlrZTE1MDMiLCJhIjoiY2t6emRpa2VsMDA0YTNjcWw2bHBybHc2byJ9.XEO0BneJLV0LJU3LK9QgYA
+
+RUN export PATH=/root/.nvm/versions/node/v12.22.10/bin/npm:$PATH
+
+CMD npm start
