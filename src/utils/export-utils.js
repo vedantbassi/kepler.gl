@@ -246,7 +246,8 @@ const exporters = {
   exportImage,
   exportJson,
   exportHtml,
-  exportData
+  exportData,
+  getMapJSON
 };
 
 export default exporters;

@@ -49,6 +49,7 @@ export const Map: React.ElementType;
 export const MapIcon: React.ElementType;
 export const Minus: React.ElementType;
 export const Messages: React.ElementType;
+export const OrderByList: React.ElementType;
 export const Pause: React.ElementType;
 export const Picture: React.ElementType;
 export const Pin: React.ElementType;

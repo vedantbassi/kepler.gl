@@ -24,7 +24,7 @@ import PropTypes from 'prop-types';
 import {createSelector} from 'reselect';
 import {Tooltip} from 'components/common/styled-components';
 import KeplerGlLogo from 'components/common/logo';
-import {Save, DataTable, Save2,OrderByList, Picture, Db, Map as MapIcon, Share} from 'components/common/icons';
+import {Save, DataTable, Save2,OrderByList, Picture, Map as MapIcon, Share} from 'components/common/icons';
 import ClickOutsideCloseDropdown from 'components/side-panel/panel-dropdown';
 import Toolbar from 'components/common/toolbar';
 import ToolbarItem from 'components/common/toolbar-item';
