@@ -106,6 +106,9 @@ class App extends Component {
   componentDidMount() {
     // if we pass an id as part of the url
     // we ry to fetch along map configurations
+
+    console.log(this.props)
+
     const {params: {id, provider} = {}, location: {query = {}} = {}} = this.props;
 
     const cloudProvider = CLOUD_PROVIDERS.find(c => c.name === provider);
@@ -129,6 +132,10 @@ class App extends Component {
     if (query.mapUrl) {
       // TODO?: validate map url
       this.props.dispatch(loadRemoteMap({dataUrl: query.mapUrl}));
+    }
+
+    if (query.csvUrl){
+      this.props.dispatch(loadRemoteMap({dataUrl: query.csvUrl})); 
     }
 
     // delay zs to show the banner
