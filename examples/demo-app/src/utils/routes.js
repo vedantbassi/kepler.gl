@@ -46,6 +46,6 @@ export function buildAppRoutes(Component) {
       <Route path="(:id)" component={Component} />
       <Route path="map/:provider" component={Component} />
     </Route>,
-    <Route key="remotecsv" path="map/csv" component={Component} />
+    <Route key="remotecsv" path="map" component={Component} />
   ];
 }

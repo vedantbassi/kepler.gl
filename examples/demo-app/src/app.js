@@ -132,8 +132,8 @@ class App extends Component {
       this.props.dispatch(loadRemoteMap({dataUrl: query.mapUrl}));
     }
 
-    if (query.csvUrl){
-      this.props.dispatch(loadRemoteMap({dataUrl: query.csvUrl})); 
+    if (query.url){
+      this.props.dispatch(loadRemoteMap({dataUrl: query.url})); 
     }
 
     // delay zs to show the banner
