@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import React, {Component} from 'react';
+import React, {Component, useEffect,useState} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {createSelector} from 'reselect';
@@ -129,6 +129,50 @@ export const PanelHeaderDropdownFactory = () => {
   return PanelHeaderDropdown;
 };
 
+
+export const PanelHeaderDropdown2Factory = () => {
+  const PanelHeaderDropdown2 = ({show, onClose, id}) => {
+    
+    const [items, setItems] = useState([{key:1,link:"#","name":"file1.csv"}])
+
+    useEffect(() =>{
+          fetch('http://0.0.0.0:3000/recentFiles')
+            .then((response) => response.json())
+            .then((responseJson) => {
+              setItems(responseJson.recentFiles)
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+    },[])
+
+    // var items = [{key:1,link:"#","name":"file1.csv"}]
+    return (
+      <StyledToolbar show={show} className={`${id}-dropdown`}>
+        <ClickOutsideCloseDropdown
+          className="panel-header-dropdown__inner"
+          show={show}
+          onClose={onClose}
+        >
+          <div style={{margin:"5px",width:"300px", display:"flex",flexDirection:"column"}}>
+          
+            <div style={{margin:"5px",fontSize:"12px",color:"#FFF"}}>
+              Recent files
+            </div>
+            
+            {items.map(item => (
+              <a style={{margin:"5px",fontSize:"11px",color:"#FFF","&:hover":{textDecoration:"underline"}}} target="_blank" rel="noopener" href={"/map/csv?csvUrl="+item.link} key={item.key}>{item.name}</a>
+            ))}
+
+          </div>
+        </ClickOutsideCloseDropdown>
+      </StyledToolbar>
+    );
+  };
+
+  return PanelHeaderDropdown2;
+};
+
 const getDropdownItemsSelector = () =>
   createSelector(
     props => props,
@@ -221,9 +265,31 @@ export const CloudStorageDropdownFactory = PanelHeaderDropdown => {
   };
   return CloudStorageDropdown;
 };
+
+
+export const RecentFilesDropdownFactory = PanelHeaderDropdown2 => {
+  // const dropdownItemsSelector = getDropdownItemsSelector();
+
+  const RecentFilesDropdown = props => (
+    <PanelHeaderDropdown2
+      show={props.show}
+      onClose={props.onClose}
+      id="recent-files"
+    />
+  );
+  RecentFilesDropdown.defaultProps = {
+    items: [{key:1,link:"#","name":"no files to show"}]
+  };
+  return RecentFilesDropdown;
+};
+
+RecentFilesDropdownFactory.deps = [PanelHeaderDropdown2Factory];
+
 CloudStorageDropdownFactory.deps = [PanelHeaderDropdownFactory];
 
-PanelHeaderFactory.deps = [SaveExportDropdownFactory, CloudStorageDropdownFactory];
+PanelHeaderFactory.deps = [SaveExportDropdownFactory, CloudStorageDropdownFactory,RecentFilesDropdownFactory];
+
+
 
 
 function save2server(props){
@@ -243,7 +309,7 @@ function save2server(props){
 }
 
 
-function PanelHeaderFactory(SaveExportDropdown, CloudStorageDropdown) {
+function PanelHeaderFactory(SaveExportDropdown, CloudStorageDropdown,RecentFilesDropdown) {
   return class PanelHeader extends Component {
     static propTypes = {
       appName: PropTypes.string,
@@ -284,7 +350,8 @@ function PanelHeaderFactory(SaveExportDropdown, CloudStorageDropdown) {
           id: 'recentfiles',
           iconComponent: OrderByList,
           tooltip: 'Recent files',
-          onClick: () => {}
+          onClick: () => {},
+          dropdownComponent:RecentFilesDropdown,
         },
         {
           id: 'save',
