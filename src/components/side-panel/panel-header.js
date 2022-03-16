@@ -161,7 +161,7 @@ export const PanelHeaderDropdown2Factory = () => {
             </div>
             
             {items.map(item => (
-              <a style={{margin:"5px",fontSize:"11px",color:"#FFF","&:hover":{textDecoration:"underline"}}} target="_blank" rel="noopener" href={"/map?url="+item.link} key={item.key}>{item.name}</a>
+              <a style={{margin:"5px",fontSize:"11px",color:"#FFF"}} target="_blank" rel="noopener" href={"/map?url="+item.link} key={item.key}>{item.name}</a>
             ))}
 
           </div>
