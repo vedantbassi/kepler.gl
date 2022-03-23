@@ -133,18 +133,23 @@ export const PanelHeaderDropdownFactory = () => {
 export const PanelHeaderDropdown2Factory = () => {
   const PanelHeaderDropdown2 = ({show, onClose, id}) => {
     
-    const [items, setItems] = useState([{key:1,link:"#","name":"file1.csv"}])
+    const [items, setItems] = useState([{key:1,link:"#","name":"samplefile.csv"}])
 
-    useEffect(() =>{
-          fetch('http://0.0.0.0:3000/recentFiles')
-            .then((response) => response.json())
-            .then((responseJson) => {
-              setItems(responseJson.recentFiles)
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-    },[])
+    function getRecentFiles(){
+      fetch('http://0.0.0.0:8080/fs/recentFiles')
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setItems(responseJson.recentFiles)
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+
+    useEffect(() =>
+      { 
+        getRecentFiles()
+      },[])
 
     // var items = [{key:1,link:"#","name":"file1.csv"}]
     return (
@@ -154,14 +159,26 @@ export const PanelHeaderDropdown2Factory = () => {
           show={show}
           onClose={onClose}
         >
-          <div style={{margin:"5px",width:"300px", display:"flex",flexDirection:"column"}}>
-          
-            <div style={{margin:"5px",fontSize:"12px",color:"#FFF"}}>
-              Recent files
+          <div style={{margin:"5px 5px 5px 5px",width:"400px", display:"flex",flexDirection:"column"}}>
+            
+            <div onClick={getRecentFiles} style={{display:"flex",flexDirection:"row"}}>
+              <div style={{margin:"5px",fontSize:"14px",color:"#FFF"}}>
+                Recent files
+              </div>
+              <div onClick={getRecentFiles} style={{margin:"5px",fontSize:"12px",color:"#FFF", cursor:"pointer", "textDecoration":"underline"}}>
+                (Refresh)
+              </div>
             </div>
             
             {items.map(item => (
-              <a style={{margin:"5px",fontSize:"11px",color:"#FFF"}} target="_blank" rel="noopener" href={"/map?url="+item.link} key={item.key}>{item.name}</a>
+              <div style={{display:"flex",flexDirection:"row"}}>
+              <div style={{margin:"5px",fontSize:"11px",color:"#DDD"}}>
+                {item.created} -
+              </div> 
+              <a style={{margin:"5px",fontSize:"11px",color:"#FFF","textDecoration":"underline"}} 
+                target="_blank" rel="noopener" 
+                href={"/kepler/map?url="+item.link} key={item.key}>{item.name}</a>
+              </div>
             ))}
 
           </div>
@@ -295,12 +312,15 @@ PanelHeaderFactory.deps = [SaveExportDropdownFactory, CloudStorageDropdownFactor
 function save2server(props){
   var data = getMapJSON(props,{hasData: true})
   // console.log(data)
+  
   const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data),
+        redirect: 'follow'
   };
-  fetch('http://0.0.0.0:3000/uploadJson', requestOptions)
+
+  fetch('http://0.0.0.0:3000/fs/uploadJson', requestOptions)
       .then((response) => {
         return response.json();
       })

@@ -46,6 +46,10 @@ export function buildAppRoutes(Component) {
       <Route path="(:id)" component={Component} />
       <Route path="map/:provider" component={Component} />
     </Route>,
-    <Route key="remotecsv" path="map" component={Component} />
+    <Route key="kepler" path="kepler">
+      <IndexRoute component={Component} />
+      <Route key="url" path="map" component={Component} />
+    </Route>,
+    
   ];
 }
