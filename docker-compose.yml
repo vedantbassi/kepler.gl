@@ -4,4 +4,4 @@ services:
     environment:
       MapboxAccessToken: pk.eyJ1IjoibWlrZTE1MDMiLCJhIjoiY2t6emRpa2VsMDA0YTNjcWw2bHBybHc2byJ9.XEO0BneJLV0LJU3LK9QgYA
     ports:
-      - "8090:8080"
+      - "3001:3001"

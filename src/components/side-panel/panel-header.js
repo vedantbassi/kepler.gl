@@ -136,7 +136,7 @@ export const PanelHeaderDropdown2Factory = () => {
     const [items, setItems] = useState([{key:1,link:"#","name":"samplefile.csv"}])
 
     function getRecentFiles(){
-      fetch('http://0.0.0.0:8080/fs/recentFiles')
+      fetch('https://dstools.swiggyops.de/fs/recentFiles')
         .then((response) => response.json())
         .then((responseJson) => {
           setItems(responseJson.recentFiles)
@@ -171,13 +171,13 @@ export const PanelHeaderDropdown2Factory = () => {
             </div>
             
             {items.map(item => (
-              <div style={{display:"flex",flexDirection:"row"}}>
-              <div style={{margin:"5px",fontSize:"11px",color:"#DDD"}}>
-                {item.created} -
-              </div> 
-              <a style={{margin:"5px",fontSize:"11px",color:"#FFF","textDecoration":"underline"}} 
-                target="_blank" rel="noopener" 
-                href={"/kepler/map?url="+item.link} key={item.key}>{item.name}</a>
+              <div key={item.key} style={{display:"flex",flexDirection:"row"}}>
+                <div style={{margin:"5px",fontSize:"11px",color:"#DDD"}}>
+                  {item.created} -
+                </div> 
+                <a style={{margin:"5px",fontSize:"11px",color:"#FFF","textDecoration":"underline"}} 
+                  target="_blank" rel="noopener" 
+                  href={"/kepler/map?url="+item.link} >{item.name}</a>
               </div>
             ))}
 
@@ -316,11 +316,11 @@ function save2server(props){
   const requestOptions = {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(data),
-        redirect: 'follow'
+        body: JSON.stringify(data)
+        // redirect: 'follow'
   };
 
-  fetch('http://0.0.0.0:3000/fs/uploadJson', requestOptions)
+  fetch('https://dstools.swiggyops.de/fs/uploadJson', requestOptions)
       .then((response) => {
         return response.json();
       })
