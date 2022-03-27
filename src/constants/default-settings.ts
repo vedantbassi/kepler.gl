@@ -244,6 +244,13 @@ export const DEFAULT_LAYER_GROUPS: DEFAULT_LAYER_GROUP[] = [
 
 export const DEFAULT_MAP_STYLES = [
   {
+    id: 'osm',
+    label: 'OSM',
+    url: 'https://dstools.swiggyops.de/osm/styles/basic-preview/style.json',
+    icon: `${ICON_PREFIX}/UBER_DARK_V2.png`,
+    layerGroups: DEFAULT_LAYER_GROUPS
+  },
+  {
     id: 'dark',
     label: 'Dark',
     url: 'mapbox://styles/uberdata/cjoqbbf6l9k302sl96tyvka09',
