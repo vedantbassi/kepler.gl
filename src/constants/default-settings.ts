@@ -246,7 +246,7 @@ export const DEFAULT_MAP_STYLES = [
   {
     id: 'osm',
     label: 'OSM',
-    url: 'https://dstools.swiggyops.de/osm/styles/style.json',
+    url: 'https://dstools.swiggyops.de/osm/styles/basic-preview/style.json',
     icon: `${ICON_PREFIX}/UBER_DARK_V2.png`,
     layerGroups: DEFAULT_LAYER_GROUPS
   },
